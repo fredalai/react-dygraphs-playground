@@ -4,7 +4,9 @@ import Dygraph from 'dygraphs';
 const style = {
   legend: {
     fontSize: '0.8em',
+    paddingLeft: 56,
     paddingTop: 5,
+    textAlign: 'left',
     width: 700,
   },
 };
