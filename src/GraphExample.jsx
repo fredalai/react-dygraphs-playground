@@ -75,7 +75,7 @@ class GraphExample extends React.Component {
   }
 
   componentWillUnmount() {
-    // destroy
+    // TODO(fredalai): Should add dygraphs destroy
   }
 
   render() {
