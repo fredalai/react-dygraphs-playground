@@ -8,7 +8,7 @@ const style = {
     margin: 16,
     paddingBottom: 24,
     paddingLeft: 16,
-    width: 750,
+    width: 650,
   },
   legend: {
     fontSize: '0.8em',
@@ -18,7 +18,7 @@ const style = {
   },
 };
 
-class GraphExample extends React.Component {
+class DygraphsGraph extends React.Component {
   constructor(props) {
     super(props);
     this.formatValue = this.formatValue.bind(this);
@@ -74,7 +74,7 @@ class GraphExample extends React.Component {
           legend: 'always',
           legendFormatter: this.legendFormatter,
           showRangeSelector: true,
-          width: 700,
+          width: 600,
           ylabel: 'Value',
         }
       );
@@ -89,15 +89,13 @@ class GraphExample extends React.Component {
 
   render() {
     return (
-      <div>
-        <div style={style.graphBlock}>
-          <p>Dygraph Graph With React Example! {this.props.index}</p>
-          <div ref={el => this.legendDiv = el} style={style.legend} />
-          <div ref={el => this.dygraphsDiv = el} />
-        </div>
+      <div style={style.graphBlock} key={this.props.index}>
+        <p>Dygraph Graph With React Example! {this.props.index}</p>
+        <div ref={el => this.legendDiv = el} style={style.legend} />
+        <div ref={el => this.dygraphsDiv = el} />
       </div>
     );
   }
 }
 
-export default GraphExample;
+export default DygraphsGraph;
