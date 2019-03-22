@@ -3,12 +3,12 @@ import Dygraph from 'dygraphs';
 
 const style = {
   graphBlock: {
-    border: '1px solid rgba(34,36,38,.15)',
-    boxShadow: '0 1px 2px 0 rgba(34,36,38,.15)',
-    margin: 16,
+    borderTopColor: '#22242626',
+    borderTopStyle: 'solid',
+    borderTopWidth: 1,
+    marginBottom: 16,
     paddingBottom: 24,
     paddingLeft: 16,
-    width: 650,
   },
   legend: {
     fontSize: '0.8em',
@@ -21,9 +21,9 @@ const style = {
 class DygraphsGraph extends React.Component {
   constructor(props) {
     super(props);
+
     this.formatValue = this.formatValue.bind(this);
     this.legendFormatter = this.legendFormatter.bind(this);
-
   }
 
   legendFormatter(data) {
@@ -90,7 +90,6 @@ class DygraphsGraph extends React.Component {
   render() {
     return (
       <div style={style.graphBlock} key={this.props.index}>
-        <p>Dygraph Graph With React Example! {this.props.index}</p>
         <div ref={el => this.legendDiv = el} style={style.legend} />
         <div ref={el => this.dygraphsDiv = el} />
       </div>
