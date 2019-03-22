@@ -1,12 +1,9 @@
 import React from 'react';
-import DygraphsGraph from './DygraphsGraph';
-import GridDraggable, { Section } from 'grid-draggable';
 import './App.css';
+import Graphs from './Graphs';
 
 import helper from './helper';
 import fakeData from './fakeData';
-const labels = fakeData.labels;
-const data = fakeData.values;
 
 class App extends React.Component {
   constructor(props) {
@@ -32,49 +29,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <GridDraggable
-          dragStart={this.dragStart}
-          onDrag={this.onDrag}
-          dragStop={this.dragStop}
-          lg={5}
-          md={3}
-          xs={6}
-          rowClassName="row-test"
-          colClassName="col-test"
-        >
-          <Section key="N1">
-            <DygraphsGraph
-              data={data}
-              index="N1"
-              formatTimestamp={helper.formatTimestamp}
-              labels={labels}
-            />
-          </Section>
-          <Section key="N2">
-            <DygraphsGraph
-              data={data}
-              index="N2"
-              formatTimestamp={helper.formatTimestamp}
-              labels={labels}
-            />
-          </Section>
-          <Section key="N3">
-            <DygraphsGraph
-              data={data}
-              index="N3"
-              formatTimestamp={helper.formatTimestamp}
-              labels={labels}
-            />
-          </Section>
-          <Section key="N4">
-            <DygraphsGraph
-              data={data}
-              index="N4"
-              formatTimestamp={helper.formatTimestamp}
-              labels={labels}
-            />
-          </Section>
-        </GridDraggable>
+        <Graphs
+          graphData={fakeData}
+          handleDragStart={this.dragStart}
+          handleDragStop={this.dragStop}
+          handleFormatTimestamp={helper.formatTimestamp}
+          handleOnDrag={this.onDrag}
+        />
       </div>
     );
   }
