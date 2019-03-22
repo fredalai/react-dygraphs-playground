@@ -2,12 +2,19 @@ import React from 'react';
 import Dygraph from 'dygraphs';
 
 const style = {
+  graphBlock: {
+    border: '1px solid rgba(34,36,38,.15)',
+    boxShadow: '0 1px 2px 0 rgba(34,36,38,.15)',
+    margin: 16,
+    paddingBottom: 24,
+    paddingLeft: 16,
+    width: 750,
+  },
   legend: {
     fontSize: '0.8em',
     paddingLeft: 56,
     paddingTop: 5,
     textAlign: 'left',
-    width: 700,
   },
 };
 
@@ -59,7 +66,7 @@ class GraphExample extends React.Component {
             }
           },
           colors: ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3'],
-          height: 480,
+          height: 280,
           highlightSeriesOpts: { strokeWidth: 2 },
           includeZero: true,
           labels: this.props.labels,
@@ -67,7 +74,7 @@ class GraphExample extends React.Component {
           legend: 'always',
           legendFormatter: this.legendFormatter,
           showRangeSelector: true,
-          width: 900,
+          width: 700,
           ylabel: 'Value',
         }
       );
@@ -83,9 +90,11 @@ class GraphExample extends React.Component {
   render() {
     return (
       <div>
-        <p>Dygraph Graph With React Example!</p>
-        <div ref={el => this.legendDiv = el} style={style.legend} />
-        <div ref={el => this.dygraphsDiv = el} />
+        <div style={style.graphBlock}>
+          <p>Dygraph Graph With React Example! {this.props.index}</p>
+          <div ref={el => this.legendDiv = el} style={style.legend} />
+          <div ref={el => this.dygraphsDiv = el} />
+        </div>
       </div>
     );
   }
