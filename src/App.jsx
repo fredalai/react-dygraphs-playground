@@ -1,5 +1,5 @@
 import React from 'react';
-import GraphExample from './GraphExample';
+import DygraphsGraph from './DygraphsGraph';
 import GridDraggable, { Section } from 'grid-draggable';
 import './App.css';
 
@@ -43,7 +43,7 @@ class App extends React.Component {
           colClassName="col-test"
         >
           <Section key="N1">
-            <GraphExample
+            <DygraphsGraph
               data={data}
               index="N1"
               formatTimestamp={helper.formatTimestamp}
@@ -51,7 +51,7 @@ class App extends React.Component {
             />
           </Section>
           <Section key="N2">
-            <GraphExample
+            <DygraphsGraph
               data={data}
               index="N2"
               formatTimestamp={helper.formatTimestamp}
@@ -59,7 +59,7 @@ class App extends React.Component {
             />
           </Section>
           <Section key="N3">
-            <GraphExample
+            <DygraphsGraph
               data={data}
               index="N3"
               formatTimestamp={helper.formatTimestamp}
@@ -67,7 +67,7 @@ class App extends React.Component {
             />
           </Section>
           <Section key="N4">
-            <GraphExample
+            <DygraphsGraph
               data={data}
               index="N4"
               formatTimestamp={helper.formatTimestamp}
