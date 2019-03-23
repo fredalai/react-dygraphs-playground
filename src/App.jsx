@@ -1,4 +1,6 @@
 import React from 'react';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import './App.css';
 import Graphs from './Graphs';
 
@@ -8,37 +10,44 @@ import fakeData from './fakeData';
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      fakeData,
+    }
 
-    this.dragStart = this.dragStart.bind(this);
-    this.onDrag = this.onDrag.bind(this);
-    this.dragStop = this.dragStop.bind(this);
+    this.updateFakeDataSort = this.updateFakeDataSort.bind(this);
   }
 
-  dragStart(e, data) {
-    console.log('start: ', data);
-  }
+  updateFakeDataSort(currentPoistionId, targetPoistionId) {
+    const { fakeData } = this.state;
+    console.log(currentPoistionId, targetPoistionId);
+    const currentIndex = fakeData.findIndex(g => g.index === currentPoistionId);
+    const targetIndex = fakeData.findIndex(g => g.index === targetPoistionId);
+    const temp = fakeData[currentIndex];
+    fakeData.splice(currentIndex, 1, fakeData[targetIndex]);
+    fakeData.splice(targetIndex, 1, temp);
 
-  onDrag(e, data, match) {
-    console.log('drag: ', data, match);
-  }
-
-  dragStop(e, data) {
-    console.log('stop: ', data);
+    this.setState({ fakeData });
   }
 
   render() {
     return (
       <div className="App">
-        <Graphs
-          graphData={fakeData}
-          handleDragStart={this.dragStart}
-          handleDragStop={this.dragStop}
-          handleFormatTimestamp={helper.formatTimestamp}
-          handleOnDrag={this.onDrag}
-        />
+        {this.state.fakeData.map(
+          ({ labels, values, index }, i) => {
+          return (
+            <Graphs
+              data={values}
+              handleFormatTimestamp={helper.formatTimestamp}
+              handleSortFakeData={this.updateFakeDataSort}
+              index={index}
+              key={index}
+              labels={labels}
+            />
+          );
+        })}
       </div>
     );
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);
