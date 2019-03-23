@@ -1,47 +1,69 @@
 import React from 'react';
-import GridDraggable, { Section } from 'grid-draggable';
-import DygraphsGraph from './DygraphsGraph';
+import { DropTarget } from 'react-dnd';
+import GraphCard from './GraphCard';
 
+function dropTargetCollect(connect, monitor) {
+  return {
+    // Call this function inside render()
+    // to let React DnD handle the drag events:
+    connectDropTarget: connect.dropTarget(),
+    // You can ask the monitor about the current drag state:
+    isOver: monitor.isOver(),
+    isOverCurrent: monitor.isOver({ shallow: true }),
+    canDrop: monitor.canDrop(),
+    itemType: monitor.getItemType(),
+  }
+}
+
+const dropTargetSpec = {
+  canDrop(props, monitor) {
+    const item = monitor.getItem();
+    const { index: currentPoistionId } = item;
+    const { index: targetPoistionId } = props;
+
+    return currentPoistionId !== targetPoistionId;
+  },
+  drop(props, monitor, component) {
+    if (monitor.didDrop()) {
+      // If you want, you can check whether some nested
+      // target already handled drop
+      return;
+    }
+
+    const item = monitor.getItem();
+    const { index: currentPoistionId } = item;
+    const { handleSortFakeData, index: targetPoistionId } = props;
+
+    // Update data order
+    handleSortFakeData(currentPoistionId, targetPoistionId);
+
+    return { moved: true };
+  },
+}
 
 class Graphs extends React.PureComponent {
   render() {
     const {
-      graphData,
-      handleDragStart,
-      handleDragStop,
+      connectDropTarget,
+      data,
       handleFormatTimestamp,
-      handleOnDrag,
+      index,
+      labels,
     } = this.props;
-
-    return (
-      <GridDraggable
-        dragStart={handleDragStart}
-        onDrag={handleOnDrag}
-        dragStop={handleDragStop}
-        lg={6}
-        md={3}
-        xs={6}
-        rowClassName="row-test"
-        colClassName="col-test"
+    return connectDropTarget(
+      <div
+        key={index}
+        style={{ width: 700 }}
       >
-        {
-          graphData.map(
-            ({ labels, values }, i) => {
-            return (
-              <Section key={i}>
-                <DygraphsGraph
-                  data={values}
-                  index={`N${i}`}
-                  formatTimestamp={handleFormatTimestamp}
-                  labels={labels}
-                />
-              </Section>
-            );
-          })
-        }
-      </GridDraggable>
+        <GraphCard
+          data={data}
+          handleFormatTimestamp={handleFormatTimestamp}
+          index={index}
+          labels={labels}
+        />
+      </div>
     );
   }
 }
 
-export default Graphs;
+export default DropTarget('GRAPH', dropTargetSpec, dropTargetCollect)(Graphs);
