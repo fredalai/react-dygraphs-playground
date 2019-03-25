@@ -41,29 +41,24 @@ const dropTargetSpec = {
   },
 }
 
-class Graphs extends React.PureComponent {
-  render() {
-    const {
-      connectDropTarget,
-      data,
-      handleFormatTimestamp,
-      index,
-      labels,
-    } = this.props;
-    return connectDropTarget(
-      <div
-        key={index}
-        style={{ width: 700 }}
-      >
-        <GraphCard
-          data={data}
-          handleFormatTimestamp={handleFormatTimestamp}
-          index={index}
-          labels={labels}
-        />
-      </div>
-    );
-  }
-}
+const Graphs = ({
+  connectDropTarget,
+  data,
+  handleFormatTimestamp,
+  index,
+  labels,
+}) => connectDropTarget(
+  <div
+    key={index}
+    style={{ width: 700 }}
+  >
+    <GraphCard
+      data={data}
+      handleFormatTimestamp={handleFormatTimestamp}
+      index={index}
+      labels={labels}
+    />
+  </div>
+);
 
 export default DropTarget('GRAPH', dropTargetSpec, dropTargetCollect)(Graphs);
