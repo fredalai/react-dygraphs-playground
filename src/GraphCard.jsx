@@ -5,15 +5,31 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import DygraphsGraph from './DygraphsGraph';
 
 const style = {
-  cardHeader: {
-    height: 32,
-    lineHeight: '32px',
-  },
   cardBlock: {
     border: '1px solid rgba(34,36,38,.15)',
     boxShadow: '0 1px 2px 0 rgba(34,36,38,.15)',
     margin: 8,
-  }
+  },
+  cardHeader: {
+    alignItems: 'center',
+    display: 'flex',
+    height: 32,
+    justifyContent: 'space-between',
+  },
+  cardHeaderTitle: {
+    flexGrow: 1,
+  },
+  cardHeaderTool: {
+    height: 32,
+    position: 'relative',
+    width: 48,
+  },
+  infoButton: {
+    backgroundColor: '#dededf',
+    borderWidth: 0,
+    height: '100%',
+    width: '100%',
+  },
 };
 
 function dragSourceCollect(connect, monitor) {
@@ -59,13 +75,28 @@ class GraphCard extends React.Component {
     } = this.props;
 
     return connectDragSource(
-      <div style={style.cardBlock}>
-        <div style={{
-          ...style.cardHeader,
-          cursor: isDragging ? 'grabbing' : 'pointer',
-        }}>
-          Dygraph Graph With React Example! {index}
-          {isDragging && ' (and I am being dragged now)'}
+      <div
+        ref={graph => this.graph = graph}
+        style={style.cardBlock}
+      >
+        <div
+          style={{
+            ...style.cardHeader,
+            cursor: isDragging ? 'grabbing' : 'pointer',
+          }}
+        >
+          <div style={style.cardHeaderTitle}>
+            Dygraph Graph With React Example! {index}
+            {isDragging && ' (and I am being dragged now)'}
+          </div>
+          <div style={style.cardHeaderTool}>
+            <button
+              style={style.infoButton}
+              type="button"
+            >
+              Info
+            </button>
+          </div>
         </div>
         <DygraphsGraph
           data={data}
