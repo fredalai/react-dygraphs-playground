@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 
@@ -62,6 +63,27 @@ class GraphCard extends React.Component {
         captureDraggingState: true,
       })
     }
+
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  handleOnClick() {
+    const node = findDOMNode(this.graph);
+    const parentNode = node.parentNode;
+    const parentBoundClientRect = parentNode.getBoundingClientRect();
+    const { x = 0, y = 0 } = parentBoundClientRect;
+    const data = {
+      node,
+      // lastX + deltaX === x
+      x,
+      y,
+      deltaX: 0,
+      deltaY: 0,
+      lastX: x,
+      lastY: y,
+    };
+
+    console.log(data);
   }
 
   render() {
@@ -91,6 +113,7 @@ class GraphCard extends React.Component {
           </div>
           <div style={style.cardHeaderTool}>
             <button
+              onClick={this.handleOnClick}
               style={style.infoButton}
               type="button"
             >
