@@ -46,7 +46,7 @@ class DygraphsGraph extends React.Component {
           legend: 'always',
           legendFormatter: this.legendFormatter,
           showRangeSelector: true,
-          width: 600,
+          width: this.props.width,
           ylabel: 'Value',
         }
       );

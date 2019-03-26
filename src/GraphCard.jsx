@@ -94,6 +94,7 @@ class GraphCard extends React.Component {
       index,
       isDragging,
       labels,
+      width,
     } = this.props;
 
     return connectDragSource(
@@ -126,6 +127,7 @@ class GraphCard extends React.Component {
           index={index}
           formatTimestamp={handleFormatTimestamp}
           labels={labels}
+          width={width}
         />
       </div>
     );

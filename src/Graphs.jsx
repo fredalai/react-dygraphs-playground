@@ -41,6 +41,13 @@ const dropTargetSpec = {
   },
 }
 
+const width = 800;
+const style = {
+  block: {
+    width,
+  },
+};
+
 const Graphs = ({
   connectDropTarget,
   data,
@@ -50,13 +57,14 @@ const Graphs = ({
 }) => connectDropTarget(
   <div
     key={index}
-    style={{ width: 700 }}
+    style={style.block}
   >
     <GraphCard
       data={data}
       handleFormatTimestamp={handleFormatTimestamp}
       index={index}
       labels={labels}
+      width={width - 50}
     />
   </div>
 );
