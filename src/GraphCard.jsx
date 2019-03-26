@@ -104,7 +104,7 @@ class GraphCard extends React.Component {
         <div
           style={{
             ...style.cardHeader,
-            cursor: isDragging ? 'grabbing' : 'pointer',
+            cursor: isDragging ? 'grabbing' : 'move',
           }}
         >
           <div style={style.cardHeaderTitle}>
