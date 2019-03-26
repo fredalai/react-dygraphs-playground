@@ -8,7 +8,7 @@ const formatTimestamp = (timestamp) => {
   const min = unixTimestamp.getMinutes();
   const sec = unixTimestamp.getSeconds();
 
-  return `${year}-${pad(month + 1)}-${day} ${hour}:${min}:${pad(sec)}`;
+  return `${year}-${pad(month)}-${day} ${hour}:${min}:${pad(sec)}`;
 };
 
 export default {
