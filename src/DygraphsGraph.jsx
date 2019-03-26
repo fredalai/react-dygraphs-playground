@@ -37,6 +37,7 @@ class DygraphsGraph extends React.Component {
               axisLabelFormatter: this.formatValue,
             }
           },
+          // TODO(fredalai): Use colorBrewer instead of this hard code color
           colors: ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3'],
           height: 280,
           highlightSeriesOpts: { strokeWidth: 2 },
