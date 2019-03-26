@@ -26,34 +26,6 @@ class DygraphsGraph extends React.Component {
     this.legendFormatter = this.legendFormatter.bind(this);
   }
 
-  legendFormatter(data) {
-    if (data.x === undefined) {
-      const defaultLegend = data.series.map((series) => `${series.dashHTML} ${series.labelHTML}`).join(' ');
-
-      return `<br/> ${defaultLegend}`;
-    }
-
-    let html = `Time: ${data.xHTML}<br/>`;
-    data.series.map(series => {
-      if (!series.isVisible) return null;
-
-      let labeledData = `${series.labelHTML}: ${series.yHTML}`;
-      if (series.isHighlighted) {
-        labeledData = `<b>${labeledData}</b>`;
-      }
-
-      html += ` ${series.dashHTML} ${labeledData}`;
-      return null;
-    });
-
-    return html;
-  }
-
-  formatValue(timestamp) {
-    return this.props.formatTimestamp(timestamp);
-  }
-
-
   componentDidMount() {
     try {
       this.dygraph = new Dygraph(
@@ -81,6 +53,33 @@ class DygraphsGraph extends React.Component {
     } catch (e) {
       console.log('try new Dygraph Error: ', e);
     }
+  }
+
+  formatValue(timestamp) {
+    return this.props.formatTimestamp(timestamp);
+  }
+
+  legendFormatter(data) {
+    if (data.x === undefined) {
+      const defaultLegend = data.series.map((series) => `${series.dashHTML} ${series.labelHTML}`).join(' ');
+
+      return `<br/> ${defaultLegend}`;
+    }
+
+    let html = `Time: ${this.formatValue(data.xHTML)}<br/>`;
+    data.series.map(series => {
+      if (!series.isVisible) return null;
+
+      let labeledData = `${series.labelHTML}: ${series.yHTML}`;
+      if (series.isHighlighted) {
+        labeledData = `<b>${labeledData}</b>`;
+      }
+
+      html += ` ${series.dashHTML} ${labeledData}`;
+      return null;
+    });
+
+    return html;
   }
 
   componentWillUnmount() {
