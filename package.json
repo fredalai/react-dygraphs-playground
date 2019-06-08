@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "dygraphs": "^2.1.0",
-    "lodash": "^4.17.11",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.14",
     "react": "^16.8.4",
     "react-dnd": "^7.3.2",
     "react-dnd-html5-backend": "^7.2.0",
